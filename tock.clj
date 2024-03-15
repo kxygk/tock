@@ -126,51 +126,51 @@
   Defaults to `Asia/Bangkok`"
   [date
    & [{:keys [time-zone]
-       :or   {time-zone "Asia/Bangkok"}}]
-   (-> date                     ;; #inst "2023-10-27"
-       tick/date                ;; #time/date "2023-10-27"
-       tick/first-day-of-month  ;; #time/date "2023-10-01"
-       tick/midnight            ;; #time/date-time "2023-10-01T00:00"
-       (tick/in time-zone) ;; #time/zoned-date-time "2023-10-01T00:00+07:00[Asia/Bangkok]";; =>
-       tock/unix-time-sec     ;; 1696093200
-       #_
-       tock/unix-time-sec2date))
-  ;; ex: #time/date-time "2023-10-31T17:00"
-  #_
-  (-> #inst "2023-10-27"
-      month-start-unix-time
-      tock/unix-time-sec2date
-      (tick/in "UTC")
-      (tick/in "Asia/Bangkok"))
-  ;; => #time/zoned-date-time "2023-10-01T00:00+07:00[Asia/Bangkok]"
+       :or   {time-zone "Asia/Bangkok"}}]]
+  (-> date                     ;; #inst "2023-10-27"
+      tick/date                ;; #time/date "2023-10-27"
+      tick/first-day-of-month  ;; #time/date "2023-10-01"
+      tick/midnight            ;; #time/date-time "2023-10-01T00:00"
+      (tick/in time-zone) ;; #time/zoned-date-time "2023-10-01T00:00+07:00[Asia/Bangkok]";; =>
+      tock/unix-time-sec     ;; 1696093200
+      #_
+      tock/unix-time-sec2date))
+;; ex: #time/date-time "2023-10-31T17:00"
+#_
+(-> #inst "2023-10-27"
+    month-start-unix-time
+    tock/unix-time-sec2date
+    (tick/in "UTC")
+    (tick/in "Asia/Bangkok"))
+;; => #time/zoned-date-time "2023-10-01T00:00+07:00[Asia/Bangkok]"
 
-  (defn
-    month-start-unix-times
-    "Give an `start-date` and `end-date`
+(defn
+  month-start-unix-times
+  "Give an `start-date` and `end-date`
   Finds all the start/end points of months
   ex: 2023-07-01 00:00
   And finds the associate `unix-time` for it
   Defaults to `Asia/Thailand`"
-    [start-date
-     end-date
-     & [{:keys [time-zone]
-         :or   {time-zone "Asia/Bangkok"}}]]
-    (->> (months-in-range (tick/date start-date) ; in case `date-time` given
-                          (tick/date end-date)) ;   will convert to a `date`
-         (mapv month-start-unix-time)))
-
-  (month-start-unix-times #inst"2022-11-27"
-                          #inst"2023-11-27"
-                          {:time-zone time-zone})
-  ;; => [1698771600
-  ;;     1696093200
-  ;;     1693501200
-  ;;     1690822800
-  ;;     1688144400
-  ;;     1685552400
-  ;;     1682874000
-  ;;     1680282000
-  ;;     1677603600
-  ;;     1675184400
-  ;;     1672506000
-  ;;     1669827600]
+  [start-date
+   end-date
+   & [{:keys [time-zone]
+       :or   {time-zone "Asia/Bangkok"}}]]
+  (->> (months-in-range (tick/date start-date) ; in case `date-time` given
+                        (tick/date end-date)) ;   will convert to a `date`
+       (mapv month-start-unix-time)))
+#_
+(month-start-unix-times #inst"2022-11-27"
+                        #inst"2023-11-27"
+                        {:time-zone time-zone})
+;; => [1698771600
+;;     1696093200
+;;     1693501200
+;;     1690822800
+;;     1688144400
+;;     1685552400
+;;     1682874000
+;;     1680282000
+;;     1677603600
+;;     1675184400
+;;     1672506000
+;;     1669827600]

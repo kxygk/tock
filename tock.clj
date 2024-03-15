@@ -161,7 +161,7 @@
 #_
 (month-start-unix-times #inst"2022-11-27"
                         #inst"2023-11-27"
-                        {:time-zone time-zone})
+                        {:time-zone "Asia/Thailand"})
 ;; => [1698771600
 ;;     1696093200
 ;;     1693501200
